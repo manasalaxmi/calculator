@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pastel Calculator</title>
+  <title>Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <h1>CALCULATOR</h1>
   <div id="calculator">
     <div id="subdisplay"></div>
     <div id="display">0</div>
@@ -30,11 +31,13 @@
       <button onclick="appendNumber('3')">3</button>
       <button class="operator" onclick="setOperator('+')">+</button>
 
-      <button onclick="appendNumber('0')" class="span-2">0</button>
+      <button onclick="appendNumber('0')">0</button>
       <button onclick="appendDecimal()">.</button>
-      <button class="operator" onclick="evaluate()">=</button>
-
       <button onclick="backspace()">←</button>
+      <button class="operator" onclick="calculate()">=</button>
+
+
+      
     </div>
   </div>
 
