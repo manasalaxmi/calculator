@@ -17,13 +17,11 @@ window.onload = function () {
     }
   }
 
-
   let firstOperand = null;
   let operator = null;
   let waitingForSecondOperand = false;
   let justEvaluated = false;
 
-  // Display elements
   const display = document.getElementById('display');
   const subdisplay = document.getElementById('subdisplay');
 
@@ -40,6 +38,7 @@ window.onload = function () {
     subdisplay.textContent = '';
   }
 
+  // Make all functions available to HTML
   window.appendNumber = function (num) {
     if (display.textContent === "Nice try!") {
       resetCalculator();
@@ -88,26 +87,27 @@ window.onload = function () {
     justEvaluated = false;
   };
 
-  window.evaluate = function () {
-    if (!operator || waitingForSecondOperand) return; // Nothing to evaluate
-    const secondOperand = display.textContent;
-    if (operator === '/' && secondOperand === '0') {
-      updateDisplay("Nice try!");
-      subdisplay.textContent = '';
-      firstOperand = null;
-      operator = null;
-      waitingForSecondOperand = false;
-      justEvaluated = false;
-      return;
-    }
-    const result = operate(operator, firstOperand, secondOperand);
-    subdisplay.textContent = `${firstOperand} ${operator} ${secondOperand}`;
-    updateDisplay(roundResult(result).toString());
-    firstOperand = display.textContent;
+ window.calculate = function () {
+  if (!operator || waitingForSecondOperand) return; 
+  const secondOperand = display.textContent;
+  if (operator === '/' && secondOperand === '0') {
+    updateDisplay("Nice try!");
+    subdisplay.textContent = '';
+    firstOperand = null;
     operator = null;
     waitingForSecondOperand = false;
-    justEvaluated = true;
-  };
+    justEvaluated = false;
+    return;
+  }
+  const result = operate(operator, firstOperand, secondOperand);
+  subdisplay.textContent = `${firstOperand} ${operator} ${secondOperand}`;
+  updateDisplay(roundResult(result).toString());
+  firstOperand = display.textContent;
+  operator = null;
+  waitingForSecondOperand = false;
+  justEvaluated = true;
+};
+
 
   function roundResult(num) {
     if (typeof num === 'string') return num;
@@ -144,7 +144,6 @@ window.onload = function () {
       updateDisplay((parseFloat(display.textContent) / 100).toString());
     }
   };
-
 
   document.addEventListener('keydown', (e) => {
     if (e.key >= '0' && e.key <= '9') window.appendNumber(e.key);
