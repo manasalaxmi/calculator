@@ -3,7 +3,7 @@ window.onload = function () {
   function add(a, b) { return a + b; }
   function subtract(a, b) { return a - b; }
   function multiply(a, b) { return a * b; }
-  function divide(a, b) { return b === 0 ? "Nice try!" : a / b; }
+  function divide(a, b) { return b === 0 ? "ERROR!" : a / b; }
 
   function operate(operator, a, b) {
     a = parseFloat(a);
@@ -40,7 +40,7 @@ window.onload = function () {
 
   // Make all functions available to HTML
   window.appendNumber = function (num) {
-    if (display.textContent === "Nice try!") {
+    if (display.textContent === "ERROR!") {
       resetCalculator();
     }
     if (waitingForSecondOperand || display.textContent === '0' || justEvaluated) {
@@ -53,7 +53,7 @@ window.onload = function () {
   };
 
   window.appendDecimal = function () {
-    if (display.textContent === "Nice try!") {
+    if (display.textContent === "ERROR!") {
       resetCalculator();
     }
     if (waitingForSecondOperand || justEvaluated) {
@@ -68,7 +68,7 @@ window.onload = function () {
   };
 
   window.setOperator = function (nextOperator) {
-    if (display.textContent === "Nice try!") {
+    if (display.textContent === "ERROR!") {
       resetCalculator();
     }
     const inputValue = display.textContent;
@@ -91,7 +91,7 @@ window.onload = function () {
   if (!operator || waitingForSecondOperand) return; 
   const secondOperand = display.textContent;
   if (operator === '/' && secondOperand === '0') {
-    updateDisplay("Nice try!");
+    updateDisplay("ERROR!");
     subdisplay.textContent = '';
     firstOperand = null;
     operator = null;
@@ -119,7 +119,7 @@ window.onload = function () {
   };
 
   window.backspace = function () {
-    if (display.textContent === "Nice try!") {
+    if (display.textContent === "ERROR!") {
       resetCalculator();
       return;
     }
@@ -131,7 +131,7 @@ window.onload = function () {
   };
 
   window.toggleSign = function () {
-    if (display.textContent === '0' || display.textContent === "Nice try!") return;
+    if (display.textContent === '0' || display.textContent === "ERROR!") return;
     if (display.textContent.startsWith('-')) {
       updateDisplay(display.textContent.slice(1));
     } else {
@@ -140,7 +140,7 @@ window.onload = function () {
   };
 
   window.percent = function () {
-    if (display.textContent !== "Nice try!") {
+    if (display.textContent !== "ERROR!") {
       updateDisplay((parseFloat(display.textContent) / 100).toString());
     }
   };
